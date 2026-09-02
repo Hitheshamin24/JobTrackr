@@ -3,7 +3,6 @@ import MainLayout from "../../app/layout/MainLayout";
 import DashboardPage from "../../shared/ui/pages/DashboardPage";
 import ApplicationsPage from "../applications/ui/pages/ApplicationsPage";
 import AnalyticsPage from "../analytics/ui/pages/AnalyticsPage";
-import SettingPage from "../setting/ui/pages/SettingPage";
 
 const router = createBrowserRouter([
   {
@@ -26,11 +25,7 @@ const router = createBrowserRouter([
         path: "analytics",
         element: <AnalyticsPage />,
       },
-      {
-        path:"settings",
-        element:<SettingPage/>
-      }
-    ],
+          ],
   },
 ]);
 
