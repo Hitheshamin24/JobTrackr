@@ -2,7 +2,7 @@ import { useState } from "react";
 import ApplicationContext from "./ApplicationContext";
 
 const ApplicationProvider = ({ children }) => {
-  const [showApplicationForm, setShowApplicationForm] = useState(true);
+  const [showApplicationForm, setShowApplicationForm] = useState(false);
 
 
 

@@ -17,10 +17,11 @@ const MainLayoutContent = () => {
 
         {/* Main Content */}
         <main className="ml-64 min-h-screen w-[calc(100%-16rem)]">
-          {showApplicationForm && (
+         
+          <div className="mx-auto w-full max-w-7xl px-6 py-8 lg:px-8">
+             {showApplicationForm && (
             <ApplicationForm onClose={() => setShowApplicationForm(false)} />
           )}
-          <div className="mx-auto w-full max-w-7xl px-6 py-8 lg:px-8">
             <Outlet />
           </div>
         </main>
