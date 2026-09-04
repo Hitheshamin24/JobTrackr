@@ -3,11 +3,12 @@ import ApplicationContext from "./ApplicationContext";
 
 const ApplicationProvider = ({ children }) => {
   const [showApplicationForm, setShowApplicationForm] = useState(false);
+  const [editingApplication, setEditingApplication] = useState(null)
 
 
 
   return (
-    <ApplicationContext.Provider value={{showApplicationForm,setShowApplicationForm}}>
+    <ApplicationContext.Provider value={{showApplicationForm,setShowApplicationForm,editingApplication,setEditingApplication}}>
       {children}
     </ApplicationContext.Provider>
   );

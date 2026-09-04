@@ -1,49 +1,12 @@
 import PageHeader from '../../../../shared/ui/component/PageHeader';
 import ApplicationsToolbar from '../components/ApplicationsToolbar';
 import ApplicationsTable from '../components/ApplicationsTable';
+import { useSelector } from 'react-redux';
 
 const ApplicationsPage = () => {
-  const applications = [
-    {
-      id: 1,
-      role: 'Senior UX Designer',
-      company: 'Acme Corp',
-      locationMain: 'San Francisco, CA',
-      locationSub: '(Hybrid)',
-      status: 'Interviewing',
-      statusTheme: 'blue',
-      applied: 'Oct 24, 2023',
-      interview: 'Nov 2, 2:00 PM',
-      hasInterview: true,
-      logoColor: 'text-blue-500',
-    },
-    {
-      id: 2,
-      role: 'Product Designer',
-      company: 'Globex Solutions',
-      locationMain: 'Remote',
-      locationSub: '',
-      status: 'Applied',
-      statusTheme: 'gray',
-      applied: 'Oct 26, 2023',
-      interview: '--',
-      hasInterview: false,
-      logoColor: 'text-emerald-500',
-    },
-    {
-      id: 3,
-      role: 'Lead UI Designer',
-      company: 'Initech',
-      locationMain: 'Austin, TX',
-      locationSub: '',
-      status: 'Rejected',
-      statusTheme: 'red',
-      applied: 'Oct 10, 2023',
-      interview: '--',
-      hasInterview: false,
-      logoColor: 'text-purple-500',
-    },
-  ];
+  
+
+  const {applications}=useSelector((state)=>state.applications)
 
   return (
     <div className="min-h-screen bg-[#fafbfc] p-8 font-sans text-gray-900">

@@ -3,10 +3,12 @@ import Navbar from "../../shared/ui/component/Navbar";
 import { useApplicationContext } from "../../features/applications/context/useApplicationContext";
 import ApplicationForm from "../../features/applications/ui/components/ApplicationForm";
 import ApplicationProvider from "../../features/applications/context/ApplicationProvider";
+import { useApplicationsHook } from "../../features/applications/hooks/useAppicationsHook";
 
 const MainLayoutContent = () => {
-  const { showApplicationForm, setShowApplicationForm } =
+  const { showApplicationForm } =
     useApplicationContext();
+  const {onClose}=useApplicationsHook()
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="flex min-h-screen">
@@ -17,11 +19,12 @@ const MainLayoutContent = () => {
 
         {/* Main Content */}
         <main className="ml-64 min-h-screen w-[calc(100%-16rem)]">
-         
           <div className="mx-auto w-full max-w-7xl px-6 py-8 lg:px-8">
-             {showApplicationForm && (
-            <ApplicationForm onClose={() => setShowApplicationForm(false)} />
-          )}
+            {showApplicationForm && (
+              <ApplicationForm
+                onClose={onClose}
+              />
+            )}
             <Outlet />
           </div>
         </main>

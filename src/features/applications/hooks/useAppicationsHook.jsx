@@ -1,16 +1,25 @@
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { addApplication } from "../state/applicationSlice";
+import { addApplication, deleteApplication, updateApplication } from "../state/applicationSlice";
+import { useApplicationContext } from "../context/useApplicationContext";
 
 export const useApplicationsHook = () => {
   const { register, handleSubmit, reset } = useForm();
+  const { setShowApplicationForm, setEditingApplication } =
+    useApplicationContext();
   const { applications } = useSelector((state) => state.applications);
   console.log(applications);
   const dispatch = useDispatch();
+    const onClose = () => {
+    setShowApplicationForm(false);
+    setEditingApplication(false);
+  };
   const handleApplicationsSubmit = (data, editingApplication) => {
     if (editingApplication) {
       console.log("Editing applications", editingApplication);
+      const updatedApplication={...editingApplication,...data}
+      dispatch(updateApplication(updatedApplication))
     } else {
       const exists = applications.some(
         (application) =>
@@ -26,6 +35,7 @@ export const useApplicationsHook = () => {
 
       dispatch(addApplication(newApplication));
     }
+    onClose()
   };
 
   const handleApplicationsError = (error) => {
@@ -36,11 +46,18 @@ export const useApplicationsHook = () => {
       return toast.warn(firstError.message);
     }
   };
+
+  const handleDeleteApplication = (id) => {
+    dispatch(deleteApplication(id));
+    toast.success("Application deleted successfully");
+  };
   return {
     register,
     handleSubmit,
     reset,
     handleApplicationsError,
     handleApplicationsSubmit,
+    handleDeleteApplication,
+    onClose,
   };
 };

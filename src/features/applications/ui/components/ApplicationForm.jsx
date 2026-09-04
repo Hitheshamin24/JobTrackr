@@ -1,5 +1,7 @@
 import { X, Save } from "lucide-react";
 import { useApplicationsHook } from "../../hooks/useAppicationsHook";
+import { useApplicationContext } from "../../context/useApplicationContext";
+import { useEffect } from "react";
 
 const ApplicationForm = ({ onClose }) => {
   const {
@@ -7,11 +9,21 @@ const ApplicationForm = ({ onClose }) => {
     handleSubmit,
     handleApplicationsError,
     handleApplicationsSubmit,
+    reset,
   } = useApplicationsHook();
-
+  const { editingApplication } = useApplicationContext();
   const onSubmit = (data) => {
-    handleApplicationsSubmit(data);
+    handleApplicationsSubmit(data,editingApplication);
   };
+  useEffect(() => {
+    if (editingApplication) {
+      reset(editingApplication);
+    } else {
+      reset({
+        applicationDate: new Date(Date.now()).toISOString().split("T")[0],
+      });
+    }
+  }, [reset, editingApplication]);
   return (
     <div
       onClick={onClose}
@@ -26,7 +38,7 @@ const ApplicationForm = ({ onClose }) => {
           <div className="flex items-center gap-2">
             <div>
               <h2 className="text-xs font-semibold text-slate-800">
-                New Application
+                {editingApplication ? "Update Application" : " New Application"}
               </h2>
               <p className="text-[9px] text-slate-400">
                 Track a new job opportunity
@@ -78,7 +90,6 @@ const ApplicationForm = ({ onClose }) => {
               />
             </div>
           </div>
-
           {/* Row 2: Job URL */}
           <div className="mb-4">
             <label className="mb-1.5 block text-[10px] font-medium text-slate-700">
@@ -93,12 +104,11 @@ const ApplicationForm = ({ onClose }) => {
               className="h-9 w-full rounded-lg border border-slate-200 bg-white px-2.5 text-xs text-slate-700 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-600/10"
             />
           </div>
-
           {/* Row 3: Location + Job Type + Salary */}
-          <div className="mb-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="mb-1.5 block text-[10px] font-medium text-slate-700">
-                Location
+                Location Type
               </label>
               <select
                 {...register("locationType", {
@@ -112,6 +122,22 @@ const ApplicationForm = ({ onClose }) => {
                 <option value="onsite">On-site</option>
               </select>
             </div>
+
+            <div>
+              <label className="mb-1.5 block text-[10px] font-medium text-slate-700">
+                Location
+              </label>
+              <input
+                type="text"
+                {...register("location", {
+                  required: "Location is required",
+                })}
+                placeholder="e.g. Mangalore"
+                className="h-9 w-full rounded-lg border border-slate-200 bg-white px-2.5 text-xs text-slate-700 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-600/10"
+              />
+            </div>
+          </div>{" "}
+          <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="mb-1.5 block text-[10px] font-medium text-slate-700">
                 Job Type
@@ -142,7 +168,6 @@ const ApplicationForm = ({ onClose }) => {
               />
             </div>
           </div>
-
           {/* Row 4: Status + Dates */}
           <div className="mb-4 rounded-lg bg-slate-50 p-3 border border-slate-100 grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
@@ -184,7 +209,6 @@ const ApplicationForm = ({ onClose }) => {
               />
             </div>
           </div>
-
           {/* Row 5: Notes */}
           <div>
             <label className="mb-1.5 block text-[10px] font-medium text-slate-700">
@@ -214,7 +238,7 @@ const ApplicationForm = ({ onClose }) => {
             className="flex items-center px-4 py-2 text-sm font-semibold text-white bg-[#1d4ed8]/90 rounded-lg hover:bg-blue-800 transition-colors shadow-sm"
           >
             <Save className="w-4 h-4 mr-2" strokeWidth={2.5} />
-            Save Application
+            {editingApplication ? "Update Application" : "Save Application"}
           </button>
         </div>
       </div>
