@@ -209,19 +209,7 @@ const ApplicationForm = ({ onClose }) => {
               />
             </div>
           </div>
-          {/* Row 5: Notes */}
-          <div>
-            <label className="mb-1.5 block text-[10px] font-medium text-slate-700">
-              Notes{" "}
-              <span className="font-normal text-slate-400">(Optional)</span>
-            </label>
-            <textarea
-              {...register("notes")}
-              placeholder="Important details, contacts, or requirements..."
-              rows={3}
-              className="w-full resize-none rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-xs text-slate-700 outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-600/10"
-            />
-          </div>
+         
         </form>
 
         {/* Footer */}

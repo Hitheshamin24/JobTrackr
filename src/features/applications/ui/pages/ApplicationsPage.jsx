@@ -2,12 +2,13 @@ import PageHeader from '../../../../shared/ui/component/PageHeader';
 import ApplicationsToolbar from '../components/ApplicationsToolbar';
 import ApplicationsTable from '../components/ApplicationsTable';
 import { useSelector } from 'react-redux';
+import { useApplicationsHook } from '../../hooks/useAppicationsHook';
 
 const ApplicationsPage = () => {
   
 
   const {applications}=useSelector((state)=>state.applications)
-
+const {filteredApplications}=useApplicationsHook()
   return (
     <div className="min-h-screen bg-[#fafbfc] p-8 font-sans text-gray-900">
       <PageHeader
@@ -19,7 +20,7 @@ const ApplicationsPage = () => {
         subtitle="Manage and track your job applications pipeline."
       />
       <ApplicationsToolbar />
-      <ApplicationsTable applications={applications} />
+      <ApplicationsTable applications={filteredApplications} />
     </div>
   );
 };

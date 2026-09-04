@@ -1,8 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { addApplication, deleteApplication, updateApplication } from "../state/applicationSlice";
+import {
+  addApplication,
+  deleteApplication,
+  updateApplication,
+} from "../state/applicationSlice";
 import { useApplicationContext } from "../context/useApplicationContext";
+import { useMemo } from "react";
 
 export const useApplicationsHook = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -10,16 +15,19 @@ export const useApplicationsHook = () => {
     useApplicationContext();
   const { applications } = useSelector((state) => state.applications);
   console.log(applications);
+  const { status, location, jobType, search } = useSelector(
+    (state) => state.filter,
+  );
   const dispatch = useDispatch();
-    const onClose = () => {
+  const onClose = () => {
     setShowApplicationForm(false);
     setEditingApplication(false);
   };
   const handleApplicationsSubmit = (data, editingApplication) => {
     if (editingApplication) {
       console.log("Editing applications", editingApplication);
-      const updatedApplication={...editingApplication,...data}
-      dispatch(updateApplication(updatedApplication))
+      const updatedApplication = { ...editingApplication, ...data };
+      dispatch(updateApplication(updatedApplication));
     } else {
       const exists = applications.some(
         (application) =>
@@ -35,7 +43,7 @@ export const useApplicationsHook = () => {
 
       dispatch(addApplication(newApplication));
     }
-    onClose()
+    onClose();
   };
 
   const handleApplicationsError = (error) => {
@@ -51,6 +59,21 @@ export const useApplicationsHook = () => {
     dispatch(deleteApplication(id));
     toast.success("Application deleted successfully");
   };
+
+  const filteredApplications = useMemo(() => {
+    return applications.filter((application) => {
+      const jobTypeMatch =
+        !jobType || application.jobType.toLowerCase() === jobType.toLowerCase();
+      const statusMatch =
+        !status ||
+        application.currentStatus.toLowerCase() === status.toLowerCase();
+      const locationMatch =
+        !location ||
+        application.location.toLowerCase() === location.toLowerCase();
+      const searchMatch=!search || application.companyName.toLowerCase().includes(search.toLowerCase()) || application.jobTitle.toLowerCase().includes(search.toLowerCase()) || application.locationType.toLowerCase().includes(search.toLowerCase())
+      return jobTypeMatch && statusMatch && locationMatch,searchMatch;
+    });
+  }, [jobType, status, applications, location,search]);
   return {
     register,
     handleSubmit,
@@ -59,5 +82,6 @@ export const useApplicationsHook = () => {
     handleApplicationsSubmit,
     handleDeleteApplication,
     onClose,
+    filteredApplications,
   };
 };
