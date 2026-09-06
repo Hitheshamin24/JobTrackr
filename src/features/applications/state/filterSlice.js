@@ -5,6 +5,7 @@ const initialState = {
   location: "",
   jobType: "",
   search: "",
+  sort:false
 };
 const filterSlice = createSlice({
   name: "filter",
@@ -22,6 +23,9 @@ const filterSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
+    setSort:(state)=>{
+      state.sort=!state.sort
+    },
     clearFilter: (state) => {
       state.status = "";
       state.location = "";
@@ -31,6 +35,6 @@ const filterSlice = createSlice({
   },
 });
 
-export const { setStatus, setJobType, setLocation, setSearch, clearFilter } =
+export const { setStatus, setJobType, setLocation, setSearch, setSort,clearFilter } =
   filterSlice.actions;
 export default filterSlice.reducer;

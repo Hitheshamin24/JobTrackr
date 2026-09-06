@@ -15,7 +15,7 @@ export const useApplicationsHook = () => {
     useApplicationContext();
   const { applications } = useSelector((state) => state.applications);
   console.log(applications);
-  const { status, location, jobType, search } = useSelector(
+  const { status, location, jobType, search, sort } = useSelector(
     (state) => state.filter,
   );
   const dispatch = useDispatch();
@@ -60,8 +60,8 @@ export const useApplicationsHook = () => {
     toast.success("Application deleted successfully");
   };
 
-  const filteredApplications = useMemo(() => {
-    return applications.filter((application) => {
+  let filteredApplications = useMemo(() => {
+    const filtered = applications.filter((application) => {
       const jobTypeMatch =
         !jobType || application.jobType.toLowerCase() === jobType.toLowerCase();
       const statusMatch =
@@ -70,10 +70,23 @@ export const useApplicationsHook = () => {
       const locationMatch =
         !location ||
         application.location.toLowerCase() === location.toLowerCase();
-      const searchMatch=!search || application.companyName.toLowerCase().includes(search.toLowerCase()) || application.jobTitle.toLowerCase().includes(search.toLowerCase()) || application.locationType.toLowerCase().includes(search.toLowerCase())
-      return jobTypeMatch && statusMatch && locationMatch,searchMatch;
+      const searchMatch =
+        !search ||
+        application.companyName.toLowerCase().includes(search.toLowerCase()) ||
+        application.jobTitle.toLowerCase().includes(search.toLowerCase()) ||
+        application.locationType.toLowerCase().includes(search.toLowerCase());
+      return jobTypeMatch && statusMatch && locationMatch && searchMatch;
     });
-  }, [jobType, status, applications, location,search]);
+    return filtered.sort((a, b) => {
+      const dateA = new Date(a.applicationDate);
+      const dateB = new Date(b.applicationDate);
+
+      return sort ? dateB - dateA : dateA - dateB;
+    });
+  }, [jobType, status, applications, location, search, sort]);
+
+ 
+
   return {
     register,
     handleSubmit,

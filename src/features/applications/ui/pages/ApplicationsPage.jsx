@@ -1,20 +1,18 @@
 import PageHeader from '../../../../shared/ui/component/PageHeader';
 import ApplicationsToolbar from '../components/ApplicationsToolbar';
 import ApplicationsTable from '../components/ApplicationsTable';
-import { useSelector } from 'react-redux';
 import { useApplicationsHook } from '../../hooks/useAppicationsHook';
 
 const ApplicationsPage = () => {
   
 
-  const {applications}=useSelector((state)=>state.applications)
 const {filteredApplications}=useApplicationsHook()
   return (
     <div className="min-h-screen bg-[#fafbfc] p-8 font-sans text-gray-900">
       <PageHeader
         title={
           <>
-            Applications <span className="text-gray-400 font-normal text-lg tracking-wide">({applications.length})</span>
+            Applications <span className="text-gray-400 font-normal text-lg tracking-wide">({filteredApplications.length})</span>
           </>
         }
         subtitle="Manage and track your job applications pipeline."

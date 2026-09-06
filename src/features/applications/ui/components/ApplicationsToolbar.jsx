@@ -1,4 +1,4 @@
-import { Search, ArrowUpDown } from "lucide-react";
+import { Search, ArrowUp, ArrowDown } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setJobType,
@@ -6,11 +6,12 @@ import {
   setStatus,
   clearFilter,
   setSearch,
+  setSort,
 } from "../../state/filterSlice";
 
 const ApplicationsToolbar = () => {
   const { applications } = useSelector((state) => state.applications);
-  const { status, location, jobType, search } = useSelector(
+  const { status, location, jobType, search, sort } = useSelector(
     (state) => state.filter,
   );
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ const ApplicationsToolbar = () => {
       }),
     ),
   ];
+
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-3 mb-6 flex flex-wrap items-center gap-3 shadow-sm">
       <div className="relative flex-1 min-w-50">
@@ -52,7 +54,7 @@ const ApplicationsToolbar = () => {
           <Search className="h-4 w-4 text-gray-400" strokeWidth={2} />
         </div>
         <input
-        value={search}
+          value={search}
           onChange={(e) => dispatch(setSearch(e.target.value))}
           type="text"
           className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -61,7 +63,8 @@ const ApplicationsToolbar = () => {
       </div>
 
       <div className="flex items-center gap-2">
-        <select value={status}
+        <select
+          value={status}
           onChange={(e) => dispatch(setStatus(e.target.value))}
           className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 font-medium hover:bg-gray-50 transition-colors"
         >
@@ -72,7 +75,7 @@ const ApplicationsToolbar = () => {
         </select>
 
         <select
-        value={location}
+          value={location}
           onChange={(e) => dispatch(setLocation(e.target.value))}
           className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 font-medium hover:bg-gray-50 transition-colors"
         >
@@ -82,7 +85,7 @@ const ApplicationsToolbar = () => {
           })}
         </select>
         <select
-        value={jobType}
+          value={jobType}
           onChange={(e) => dispatch(setJobType(e.target.value))}
           className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 font-medium hover:bg-gray-50 transition-colors"
           name=""
@@ -98,8 +101,15 @@ const ApplicationsToolbar = () => {
       <div className="w-px h-6 bg-gray-200 mx-2 hidden sm:block"></div>
 
       <div className="flex items-center gap-3">
-        <button className="flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">
-          <ArrowUpDown className="h-4 w-4" strokeWidth={2} />
+        <button
+          onClick={() => dispatch(setSort(!sort))}
+          className="flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+        >
+          {sort ? (
+            <ArrowUp className="h-4 w-4" strokeWidth={2} />
+          ) : (
+            <ArrowDown className="h-4 w-4" strokeWidth={2} />
+          )}
           Sort
         </button>
         <button
