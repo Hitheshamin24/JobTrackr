@@ -1,12 +1,31 @@
-import { BarChart3 } from 'lucide-react';
+import { useAnalyticsHooks } from "../../hooks/useAnalytics";
+import MetricsOverview from "./MetricsOverview";
+import ApplicationVelocity from "./ApplicationVelocity";
+import PipelineStatus from "./PipelineStatus";
+import RoleCategories from "./RoleCategories";
+import TopLocations from "./TopLocations";
 
 const AnalyticsContent = () => {
+  const { metrics, velocityData, pipelineData, roleData, locationData } =
+    useAnalyticsHooks();
+
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-8 flex items-center justify-center shadow-sm min-h-[400px]">
-      <div className="text-center">
-        <BarChart3 className="mx-auto h-12 w-12 text-gray-300 mb-4" strokeWidth={1.5} />
-        <h3 className="text-lg font-medium text-gray-900">Analytics Data Not Available</h3>
-        <p className="mt-1 text-sm text-gray-500">More charts and metrics will appear here soon.</p>
+    <div className="p-6 bg-slate-50 min-h-screen font-sans text-gray-800">
+      <div className="max-w-6xl mx-auto space-y-4">
+        {/* --- Top Metrics Row --- */}
+        <MetricsOverview metrics={metrics} />
+
+        {/* --- Middle Charts Row --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <ApplicationVelocity velocityData={velocityData} />
+          <PipelineStatus pipelineData={pipelineData} />
+        </div>
+
+        {/* --- Bottom Row --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <RoleCategories roleData={roleData} />
+          <TopLocations locationData={locationData} />
+        </div>
       </div>
     </div>
   );
