@@ -44,7 +44,7 @@ const ApplicationsTable = ({ applications }) => {
   return (
     <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-225 text-left">
+        <table className="w-full min-w-[800px] text-left">
           {/* Header */}
           <thead className="bg-slate-50/70">
             <tr className="border-b border-slate-200">

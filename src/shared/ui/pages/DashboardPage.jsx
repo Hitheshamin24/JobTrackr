@@ -1,7 +1,7 @@
 import { useDashBoardHook } from "../../hooks/useDashboardHook";
 import PageHeader from "../component/PageHeader";
 import StatCard from "../component/StatCard";
-import { Briefcase, Calendar, FileCheck } from "lucide-react";
+import { Briefcase, Calendar, FileCheck, FileX } from "lucide-react";
 
 const DashboardPage = () => {
   const {
@@ -10,6 +10,7 @@ const DashboardPage = () => {
     getUpcomingInterviews,
     getInterviewsCount,
     getOfferCount,
+    getRejectedCount,
   } = useDashBoardHook();
   const stats = [
     {
@@ -35,6 +36,14 @@ const DashboardPage = () => {
       subtitle: getOfferCount() !== 0 ? "Congratulations" : "Awaiting decision",
       subtitleColor: "text-gray-400",
       icon: <FileCheck className="w-5 h-5 text-orange-400" strokeWidth={2} />,
+    },
+     {
+      id: 4,
+      title: 'REJECTED',
+      count: getRejectedCount(),
+      subtitle: 'Keep pushing!',
+      subtitleColor: 'text-gray-400',
+      icon: <FileX className="w-5 h-5 text-red-400" strokeWidth={2} />,
     },
     
   ];

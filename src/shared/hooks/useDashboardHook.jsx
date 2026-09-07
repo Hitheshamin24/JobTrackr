@@ -36,7 +36,6 @@ export const useDashBoardHook = () => {
 
       return nexInterviewDate > today;
     });
-    console.log(upcoming);
     return upcoming.length;
   };
 
@@ -54,12 +53,20 @@ export const useDashBoardHook = () => {
     });
     return offers.length;
   };
+
+  const getRejectedCount=()=>{
+        const rejected = applications.filter((application) => {
+      return application.currentStatus === "rejected";
+    });
+    return rejected.length;
+  }
   useEffect(() => {
     getTotalCount();
     getThisWeek();
     getUpcomingInterviews();
     getInterviewsCount();
     getOfferCount();
+    getRejectedCount()
   }, [applications]);
   return {
     getTotalCount,
@@ -67,5 +74,6 @@ export const useDashBoardHook = () => {
     getUpcomingInterviews,
     getInterviewsCount,
     getOfferCount,
+    getRejectedCount
   };
 };

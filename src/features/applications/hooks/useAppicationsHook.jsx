@@ -14,7 +14,6 @@ export const useApplicationsHook = () => {
   const { setShowApplicationForm, setEditingApplication } =
     useApplicationContext();
   const { applications } = useSelector((state) => state.applications);
-  console.log(applications);
   const { status, location, jobType, search, sort } = useSelector(
     (state) => state.filter,
   );
@@ -25,7 +24,6 @@ export const useApplicationsHook = () => {
   };
   const handleApplicationsSubmit = (data, editingApplication) => {
     if (editingApplication) {
-      console.log("Editing applications", editingApplication);
       const updatedApplication = { ...editingApplication, ...data };
       dispatch(updateApplication(updatedApplication));
     } else {

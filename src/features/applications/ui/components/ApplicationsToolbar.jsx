@@ -48,8 +48,8 @@ const ApplicationsToolbar = () => {
   ];
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-3 mb-6 flex flex-wrap items-center gap-3 shadow-sm">
-      <div className="relative flex-1 min-w-50">
+    <div className="bg-white border border-gray-200 rounded-xl p-3 mb-6 flex flex-col md:flex-row md:items-center gap-3 shadow-sm">
+      <div className="relative flex-1 w-full">
         <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
           <Search className="h-4 w-4 text-gray-400" strokeWidth={2} />
         </div>
@@ -62,45 +62,45 @@ const ApplicationsToolbar = () => {
         />
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
         <select
           value={status}
           onChange={(e) => dispatch(setStatus(e.target.value))}
-          className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 font-medium hover:bg-gray-50 transition-colors"
+          className="w-full sm:w-auto px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
           <option value="">Status</option>
-          {statusOption.map((st) => {
-            return <option value={st.toLowerCase()}>{st}</option>;
+          {statusOption.map((st,index) => {
+            return <option key={index} value={st.toLowerCase()}>{st}</option>;
           })}
         </select>
 
         <select
           value={location}
           onChange={(e) => dispatch(setLocation(e.target.value))}
-          className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 font-medium hover:bg-gray-50 transition-colors"
+          className="w-full sm:w-auto px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
           <option value="">All Location</option>
-          {locationOption.map((lc) => {
-            return <option value={lc.toLowerCase()}>{lc}</option>;
+          {locationOption.map((lc,index) => {
+            return <option key={index} value={lc.toLowerCase()}>{lc}</option>;
           })}
         </select>
         <select
           value={jobType}
           onChange={(e) => dispatch(setJobType(e.target.value))}
-          className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 font-medium hover:bg-gray-50 transition-colors"
+          className="w-full sm:w-auto px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           name=""
           id=""
         >
           <option value="">All Mode</option>
-          {jobTypeOption.map((jt) => {
-            return <option value={jt.toLowerCase()}>{jt}</option>;
+          {jobTypeOption.map((jt,index) => {
+            return <option key={index} value={jt.toLowerCase()}>{jt}</option>;
           })}
         </select>
       </div>
 
-      <div className="w-px h-6 bg-gray-200 mx-2 hidden sm:block"></div>
+      <div className="w-px h-6 bg-gray-200 mx-2 hidden md:block"></div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between md:justify-start gap-4 px-1 md:px-0 w-full md:w-auto mt-1 md:mt-0">
         <button
           onClick={() => dispatch(setSort(!sort))}
           className="flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"

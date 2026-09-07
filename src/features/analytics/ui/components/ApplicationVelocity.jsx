@@ -106,31 +106,44 @@ const ApplicationVelocity = ({ velocityData = [] }) => {
                   vectorEffect="non-scaling-stroke"
                 />
               )}
-              {/* Dots */}
-              {velocityData.map((w, i) => {
-                const x = (i / (velocityData.length - 1 || 1)) * svgWidth;
-                const y = svgHeight - (w.count / yMax) * svgHeight;
-                return (
-                  <circle
-                    key={i}
-                    cx={x}
-                    cy={y}
-                    r="5"
-                    fill="white"
-                    stroke="#2563eb"
-                    strokeWidth="2.5"
-                    vectorEffect="non-scaling-stroke"
-                  />
-                );
-              })}
+              {/* SVG circles removed to avoid stretching, using HTML divs instead below */}
             </svg>
+            {/* Dots */}
+            {velocityData.map((w, i) => {
+              const left = `${(i / (velocityData.length - 1 || 1)) * 100}%`;
+              const top = `${100 - (w.count / yMax) * 100}%`;
+              return (
+                <div
+                  key={i}
+                  className="absolute w-[10px] h-[10px] bg-white border-[2.5px] border-[#2563eb] rounded-full -translate-x-1/2 -translate-y-1/2"
+                  style={{ left, top }}
+                />
+              );
+            })}
           </div>
 
           {/* X-axis Labels */}
-          <div className="absolute left-6 right-0 bottom-0 flex justify-between text-[11px] text-gray-400 px-1">
-            {velocityData.map((w) => (
-              <span key={w.label}>{w.label}</span>
-            ))}
+          <div className="absolute left-6 right-0 bottom-0 h-4">
+            {velocityData.map((w, i) => {
+              const left = `${(i / (velocityData.length - 1 || 1)) * 100}%`;
+              // Align first item left, last item right, middle items center
+              const transform =
+                i === 0
+                  ? "translateX(0)"
+                  : i === velocityData.length - 1
+                  ? "translateX(-100%)"
+                  : "translateX(-50%)";
+
+              return (
+                <span
+                  key={w.label}
+                  className="absolute text-[11px] text-gray-400 whitespace-nowrap"
+                  style={{ left, transform }}
+                >
+                  {w.label}
+                </span>
+              );
+            })}
           </div>
         </div>
       )}
