@@ -10,7 +10,7 @@ const AnalyticsContent = () => {
     useAnalyticsHooks();
 
   return (
-    <div className="p-6 bg-slate-50 min-h-screen font-sans text-gray-800">
+    <div className="px-4 py-5 sm:px-6 sm:py-6 bg-slate-50 min-h-screen font-sans text-gray-800">
       <div className="max-w-6xl mx-auto space-y-4">
         {/* --- Top Metrics Row --- */}
         <MetricsOverview metrics={metrics} />

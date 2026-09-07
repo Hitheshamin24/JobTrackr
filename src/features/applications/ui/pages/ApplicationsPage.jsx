@@ -8,7 +8,7 @@ const ApplicationsPage = () => {
 
 const {filteredApplications}=useApplicationsHook()
   return (
-    <div className="min-h-screen bg-[#fafbfc] p-8 font-sans text-gray-900">
+    <div className="min-h-screen bg-[#fafbfc] px-4 py-5 sm:px-6 sm:py-8 font-sans text-gray-900">
       <PageHeader
         title={
           <>

@@ -49,14 +49,14 @@ const DashboardPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#fafbfc] p-8 font-sans">
+    <div className="min-h-screen bg-[#fafbfc] px-4 py-5 sm:px-6 sm:py-8 font-sans">
       <PageHeader
         title="Good morning"
         subtitle="Here's what's happening with your applications today."
       />
 
       {/* Stats Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
         {stats.map((stat) => (
           <StatCard key={stat.id} stat={stat} />
         ))}

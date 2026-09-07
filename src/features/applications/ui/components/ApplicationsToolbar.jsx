@@ -48,8 +48,9 @@ const ApplicationsToolbar = () => {
   ];
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-3 mb-6 flex flex-col md:flex-row md:items-center gap-3 shadow-sm">
-      <div className="relative flex-1 w-full">
+    <div className="bg-white border border-gray-200 rounded-xl p-3 mb-4 sm:mb-6 flex flex-col gap-3 shadow-sm">
+      {/* Search */}
+      <div className="relative w-full">
         <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
           <Search className="h-4 w-4 text-gray-400" strokeWidth={2} />
         </div>
@@ -57,50 +58,49 @@ const ApplicationsToolbar = () => {
           value={search}
           onChange={(e) => dispatch(setSearch(e.target.value))}
           type="text"
-          className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           placeholder="Search company or role..."
         />
       </div>
 
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
+      {/* Filters row */}
+      <div className="grid grid-cols-3 gap-2">
         <select
           value={status}
           onChange={(e) => dispatch(setStatus(e.target.value))}
-          className="w-full sm:w-auto px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
           <option value="">Status</option>
-          {statusOption.map((st,index) => {
-            return <option key={index} value={st.toLowerCase()}>{st}</option>;
-          })}
+          {statusOption.map((st, index) => (
+            <option key={index} value={st.toLowerCase()}>{st}</option>
+          ))}
         </select>
 
         <select
           value={location}
           onChange={(e) => dispatch(setLocation(e.target.value))}
-          className="w-full sm:w-auto px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
-          <option value="">All Location</option>
-          {locationOption.map((lc,index) => {
-            return <option key={index} value={lc.toLowerCase()}>{lc}</option>;
-          })}
+          <option value="">Location</option>
+          {locationOption.map((lc, index) => (
+            <option key={index} value={lc.toLowerCase()}>{lc}</option>
+          ))}
         </select>
+
         <select
           value={jobType}
           onChange={(e) => dispatch(setJobType(e.target.value))}
-          className="w-full sm:w-auto px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          name=""
-          id=""
+          className="w-full px-2 py-2 border border-gray-200 rounded-lg text-xs text-gray-600 font-medium hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
-          <option value="">All Mode</option>
-          {jobTypeOption.map((jt,index) => {
-            return <option key={index} value={jt.toLowerCase()}>{jt}</option>;
-          })}
+          <option value="">Mode</option>
+          {jobTypeOption.map((jt, index) => (
+            <option key={index} value={jt.toLowerCase()}>{jt}</option>
+          ))}
         </select>
       </div>
 
-      <div className="w-px h-6 bg-gray-200 mx-2 hidden md:block"></div>
-
-      <div className="flex items-center justify-between md:justify-start gap-4 px-1 md:px-0 w-full md:w-auto mt-1 md:mt-0">
+      {/* Sort + Clear */}
+      <div className="flex items-center justify-between border-t border-gray-100 pt-2">
         <button
           onClick={() => dispatch(setSort(!sort))}
           className="flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
@@ -110,13 +110,13 @@ const ApplicationsToolbar = () => {
           ) : (
             <ArrowDown className="h-4 w-4" strokeWidth={2} />
           )}
-          Sort
+          Sort by date
         </button>
         <button
           onClick={() => dispatch(clearFilter())}
           className="text-sm font-semibold text-gray-500 hover:text-gray-700 transition-colors"
         >
-          Clear
+          Clear filters
         </button>
       </div>
     </div>
